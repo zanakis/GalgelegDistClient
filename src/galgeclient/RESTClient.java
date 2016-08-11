@@ -12,10 +12,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 
-/**
- *
- * @author zanakis
- */
 public class RESTClient {
     
     private static WebTarget webTarget;
@@ -54,7 +50,7 @@ public class RESTClient {
 
     public void setHighscore(String username, int score) {
         WebTarget resource = webTarget;
-        resource = resource.path("/setHighscore/" + score);
+        resource = resource.path("/setHighscore/" + username + "/" + score);
         resource.request().put(Entity.entity(username, MediaType.TEXT_PLAIN));
     }
     

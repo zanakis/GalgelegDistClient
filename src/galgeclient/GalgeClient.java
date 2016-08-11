@@ -8,10 +8,6 @@ package galgeclient;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- *
- * @author zanakis
- */
 public class GalgeClient {
 
     static Scanner in;
@@ -47,13 +43,15 @@ public class GalgeClient {
         while(!spilletErTabt && !spilletErVundet) {
             gæt = in.nextLine();
             for(int i = 0; i < gæt.length(); i++) {
-                System.out.println("Der gættes på bogstavet: " + gæt.charAt(i)+ "\nDIN STARTSCORE ER: "+ score);
-                if(!brugteBogstaver.contains(gæt.charAt(i)+"")) {
-                    map = connector.guess(gæt.charAt(i) + "", ordet,
-                            synligtOrd, antalForkerteBogstaver, sidsteBogstavVarKorrekt, score);
-                    breakdownInitStr(map);
-                    brugteBogstaver.add(gæt.charAt(i)+"");
-                }
+                if(Character.isLetter(gæt.charAt(i))) {
+                    System.out.println("Der gættes på bogstavet: " + gæt.charAt(i)+ "\nDIN STARTSCORE ER: "+ score);
+                    if(!brugteBogstaver.contains(gæt.charAt(i)+"")) {
+                        map = connector.guess(gæt.charAt(i) + "", ordet,
+                                synligtOrd, antalForkerteBogstaver, sidsteBogstavVarKorrekt, score);
+                        breakdownInitStr(map);
+                        brugteBogstaver.add(gæt.charAt(i)+"");
+                    }
+                } else System.out.println("Du kan kun gætte på bogstaver");
             }
 //            map = connector.update();
 //            breakdownInitStr(map);
@@ -134,6 +132,8 @@ public class GalgeClient {
     }
 
     private static void leaderBoard() {
-        System.out.println(connector.getHighscore());
+        ArrayList<String> highscores = connector.getHighscore();
+        for(String i : highscores)
+        System.out.println(i + "\n");
     }
 }
